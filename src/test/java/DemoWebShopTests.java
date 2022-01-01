@@ -49,25 +49,19 @@ public class DemoWebShopTests {
         Response response =
                 given()
                         .contentType("application/x-www-form-urlencoded; charset=UTF-8")
-                        .body("product_attribute_16_5_4=14&product_attribute_16_6_5=15&" +
-                                "product_attribute_16_3_6=19&product_attribute_16_4_7=44&" +
-                                "product_attribute_16_8_8=22&addtocart_16.EnteredQuantity=1")
-                        .cookie("Nop.customer=4501cf08-78ac-4d9b-8381-79dfdb3f85a9;")
+                        .body("product_attribute_72_5_18=53&product_attribute_72_6_19=54&product_attribute_72_3_20=57&addtocart_72.EnteredQuantity=1")
+                        .cookie("Nop.customer=957e0607-7b6f-4e93-8308-32ac30a6677c;")
                         .when()
-                        .post("/addproducttocart/details/74/1")
+                        .post("http://demowebshop.tricentis.com/addproducttocart/details/72/1")
                         .then()
                         .statusCode(200)
                         .body("success", is(true))
                         .body("message", is("The product has been added to your <a href=\"/cart\">shopping cart</a>"))
-                        .body("updatetopcartsectionhtml", is("(1)"))
-                        // get response
+                        //                      .body("updatetopcartsectionhtml", is("(1)"))
                         .extract().response();
-
-        System.out.println("Response: " + response.path("updatetopcartsectionhtml"));
-
-
+        System.out.println(response.asString());
+        System.out.println(response.path("updatetopcartsectionhtml").toString());
     }
-
     // API and UI
 
     @Test
