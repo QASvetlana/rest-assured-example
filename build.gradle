@@ -7,28 +7,37 @@ repositories {
     mavenCentral()
 }
 
-def junitVersion = '5.8.2',
-    allureVersion = '2.17.2',
-    selenideVersion = '6.1.2'
+def junitVersion = "5.8.1",
+    allureVersion = "2.16.1"
 
 allure {
     version = allureVersion
     autoconfigure = true
     aspectjweaver = true
     configuration = "testImplementation"
+
     useJUnit5 {
         version = allureVersion
     }
 }
 
+//dependencies {
+//    testImplementation(
+//            "io.rest-assured:rest-assured:4.3.1",
+//            "io.rest-assured:json-schema-validator:4.3.1",
+//            "io.qameta.allure:allure-rest-assured:$allureVersion",
+//            "org.assertj:assertj-core:3.19.0",
+//            "org.junit.jupiter:junit-jupiter-api:$junitVersion")
+//    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+//}
+
 dependencies {
-    testImplementation(
-            'io.rest-assured:rest-assured:4.4.0',
-            "io.qameta.allure:allure-rest-assured:$allureVersion",
-            "com.codeborne:selenide:$selenideVersion",
-            'org.assertj:assertj-core:3.21.0',
-            "org.junit.jupiter:junit-jupiter-api:$junitVersion")
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testImplementation 'io.rest-assured:rest-assured:4.4.0'
+    testImplementation 'com.codeborne:selenide:6.0.3'
+    implementation 'io.qameta.allure:allure-selenide:2.16.1'
+    implementation group: 'io.rest-assured', name: 'json-schema-validator', version: '4.3.3'
+    testImplementation"io.qameta.allure:allure-rest-assured:2.16.1"
 }
 
 tasks.withType(JavaCompile) {
