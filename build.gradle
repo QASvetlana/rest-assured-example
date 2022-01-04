@@ -8,7 +8,7 @@ repositories {
 }
 
 def junitVersion = "5.8.1",
-    allureVersion = "2.16.1"
+    allureVersion = "2.17.2"
 
 allure {
     version = allureVersion
@@ -32,12 +32,12 @@ allure {
 //}
 
 dependencies {
-    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
     testImplementation 'io.rest-assured:rest-assured:4.4.0'
-    testImplementation 'com.codeborne:selenide:6.0.3'
-    implementation 'io.qameta.allure:allure-selenide:2.16.1'
-    implementation group: 'io.rest-assured', name: 'json-schema-validator', version: '4.3.3'
-    testImplementation"io.qameta.allure:allure-rest-assured:2.16.1"
+    testImplementation 'com.codeborne:selenide:6.1.2'
+    implementation 'io.qameta.allure:allure-selenide:2.17.2'
+    implementation group: 'io.rest-assured', name: 'json-schema-validator', version: '4.4.0'
+    testImplementation 'io.qameta.allure:allure-rest-assured:2.17.2'
 }
 
 tasks.withType(JavaCompile) {
