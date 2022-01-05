@@ -1,3 +1,4 @@
+package tests;
 
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
@@ -6,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static filters.CustomLogFilters.customLogFilter;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
@@ -44,30 +46,30 @@ public class BookStoreTests {
     }
 
 
-    @Test
-    void authorizeTest() {
-        String data = "{" +
-                "  \"userName\": \"alex\"," +
-                "  \"password\": \"asdsad#frew_DFS2\"" +
-                "}";
+    //     @Test
+    //    void authorizeTest() {
+    //     String data = "{" +
+    //             "  \"userName\": \"alex\"," +
+    //             "  \"password\": \"asdsad#frew_DFS2\"" +
+    //             "}";
 
 //        Map<String, String> data = new HashMap<>();
 //        data.put("userName", "alex");
 //        data.put("password", "asdsad#frew_DFS2");
 
-        given()
-                .contentType("application/json")
-                .accept("application/json")
-                .body(data.toString())
-                .when()
-                .log().uri()
-                .log().body()
-                .post("https://demoqa.com/Account/v1/GenerateToken")
-                .then()
-                .log().body()
-                .body("status", is("Success"))
-                .body("result", is("User authorized successfully."));
-    }
+    //     given()
+    //             .contentType("application/json")
+    //            .accept("application/json")
+    //             .body(data.toString())
+    //            .when()
+    //           .log().uri()
+    //            .log().body()
+    //            .post("https://demoqa.com/Account/v1/GenerateToken")
+    //            .then()
+    //            .log().body()
+    //            .body("status", is("Success"))
+    //            .body("result", is("User authorized successfully."));
+    //   }
 
     @Test
     void authorizeWithListenerTest() {
@@ -99,7 +101,7 @@ public class BookStoreTests {
                 "}";
         step("Generate token", () ->
                 given()
-                        .filter(new AllureRestAssured())
+                        .filter(customLogFilter().withCustomTemplates())
                         .contentType("application/json")
                         .accept("application/json")
                         .body(data.toString())
@@ -115,26 +117,26 @@ public class BookStoreTests {
         step("Any UI action");
     }
 
-    @Test
-    void authorizeWithShemeTest() {
-        String data = "{" +
-                "  \"userName\": \"alex\"," +
-                "  \"password\": \"asdsad#frew_DFS2\"" +
-                "}";
+    //     @Test
+    //   void authorizeWithShemeTest() {
+    //    String data = "{" +
+    //             "  \"userName\": \"alex\"," +
+    //             "  \"password\": \"asdsad#frew_DFS2\"" +
+    //             "}";
 
-        given()
-                .filter(new AllureRestAssured())
-                .contentType("application/json")
-                .accept("application/json")
-                .body(data.toString())
-                .when()
-                .log().uri()
-                .log().body()
-                .post("https://demoqa.com/Account/v1/GenerateToken")
-                .then()
-                .log().body()
-                .body(matchesJsonSchemaInClasspath("shemas/GenerateTokenSheme.json"))
-                .body("status", is("Success"))
-                .body("result", is("User authorized successfully."));
-    }
+    //     given()
+    //             .filter(new AllureRestAssured())
+    //             .contentType("application/json")
+    //             .accept("application/json")
+    //            .body(data.toString())
+    //            .when()
+    //            .log().uri()
+    //            .log().body()
+    //             .post("https://demoqa.com/Account/v1/GenerateToken")
+    //            .then()
+    //            .log().body()
+    //             .body(matchesJsonSchemaInClasspath("shemas/GenerateTokenSheme.json"))
+    //             .body("status", is("Success"))
+    //             .body("result", is("User authorized successfully."));
+    //   }
 }

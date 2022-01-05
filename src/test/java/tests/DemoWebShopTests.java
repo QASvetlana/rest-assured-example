@@ -1,3 +1,5 @@
+package tests;
+
 import com.codeborne.selenide.Condition;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Disabled;
@@ -64,63 +66,63 @@ public class DemoWebShopTests {
     }
     // API and UI
 
-    @Test
-    void addProductToCartWithCookieAPIandUITest() {
-        given()
-                .contentType("application/x-www-form-urlencoded; charset=UTF-8")
-                .body("product_attribute_74_5_26=82" +
-                        "&product_attribute_74_6_27=85" +
-                        "&product_attribute_74_3_28=87" +
-                        "&product_attribute_74_8_29=88" +
-                        "&product_attribute_74_8_29=89" +
-                        "&product_attribute_74_8_29=90" +
-                        "&addtocart_74.EnteredQuantity=2")
-                .cookie("Nop.customer=69589107-6373-41bd-891d-47fb44277adc;")
-                .when()
-                .post("http://demowebshop.tricentis.com/addproducttocart/details/31/1")
-                .then()
-                .statusCode(200)
-                .body("success", is(true))
-                .body("message", is("The product has been added to your <a href=\"/cart\">shopping cart</a>"))
-                .extract().response();
+ //   @Test
+ //  void addProductToCartWithCookieAPIandUITest() {
+    //      given()
+    //             .contentType("application/x-www-form-urlencoded; charset=UTF-8")
+    //               .body("product_attribute_74_5_26=82" +
+    //                     "&product_attribute_74_6_27=85" +
+    //                      "&product_attribute_74_3_28=87" +
+    //                      "&product_attribute_74_8_29=88" +
+    //                     "&product_attribute_74_8_29=89" +
+    //                      "&product_attribute_74_8_29=90" +
+    //                      "&addtocart_74.EnteredQuantity=2")
+    //             .cookie("Nop.customer=69589107-6373-41bd-891d-47fb44277adc;")
+    //             .when()
+    //              .post("http://demowebshop.tricentis.com/addproducttocart/details/31/1")
+    //              .then()
+    //              .statusCode(200)
+    //           .body("success", is(true))
+ //           .body("message", is("The product has been added to your <a href=\"/cart\">shopping cart</a>"))
+    //           .extract().response();
 // Add cookie to browser
-        open("http://demowebshop.tricentis.com/Themes/DefaultClean/Content/images/logo.png");
-        getWebDriver().manage().addCookie(
-                new Cookie("Nop.customer", "69589107-6373-41bd-891d-47fb44277adc"));
-        step("Check that item has been added to Shopping Cart by UI", () -> {
-            open("http://demowebshop.tricentis.com/cart");
-            $(".cart-item-row").shouldBe(Condition.visible);
-            $(".product-name").shouldHave(text("Build your own expensive computer"));
-        });
+ //    open("http://demowebshop.tricentis.com/Themes/DefaultClean/Content/images/logo.png");
+    //      getWebDriver().manage().addCookie(
+ //          new Cookie("Nop.customer", "69589107-6373-41bd-891d-47fb44277adc"));
+ //      step("Check that item has been added to Shopping Cart by UI", () -> {
+ //          open("http://demowebshop.tricentis.com/cart");
+ //          $(".cart-item-row").shouldBe(Condition.visible);
+    //           $(".product-name").shouldHave(text("Build your own expensive computer"));
+    //     });
+    // }
+
+
+    //   @Test
+   // @Tag("demowebshop")
+    //   @DisplayName("Successful registration to demowebshop (API + UI)")
+    //  void registration() {
+    //    step("Register user by API", () -> {
+    //       given()
+    //               .contentType("application/x-www-form-urlencoded")
+    //               .body("__RequestVerificationToken=EOKFnxmSoeEnFm-" +
+    //                      "ghPa0CZir4ETJXEXwMfTdzZIgoS55Tm0oKwyiDESnXdIbi-6DgkSCWGC_" +
+    //                       "HPyc5ka4gNvFApBjYYmWJrNVgUYFgl66VzA1&Gender=" +
+    //                        "F&FirstName=Sveta&LastName=Andreeva&Email=sve7987%40yandex." +
+    //                       "ru&Password=123456&ConfirmPassword=123456&register-button=Register")
+    //               .when()
+    //              .post("http://demowebshop.tricentis.com/register")
+    //               .then()
+    //              .statusCode(302);
+    //       get("http://demowebshop.tricentis.com/registerresult/1")
+    //               .then()
+    //               .statusCode(200);
+    //    });
+
+    //    step("Check that registration successed by UI", () -> {
+    //       open("http://demowebshop.tricentis.com/registerresult/1");
+    //       $(".result").shouldHave(Condition.text("Your registration completed"));
+    //   });
     }
 
 
-    @Test
-    @Tag("demowebshop")
-    @DisplayName("Successful registration to demowebshop (API + UI)")
-    void registration() {
-        step("Register user by API", () -> {
-            given()
-                    .contentType("application/x-www-form-urlencoded")
-                    .body("__RequestVerificationToken=EOKFnxmSoeEnFm-" +
-                            "ghPa0CZir4ETJXEXwMfTdzZIgoS55Tm0oKwyiDESnXdIbi-6DgkSCWGC_" +
-                            "HPyc5ka4gNvFApBjYYmWJrNVgUYFgl66VzA1&Gender=" +
-                            "F&FirstName=Sveta&LastName=Andreeva&Email=sve7987%40yandex." +
-                            "ru&Password=123456&ConfirmPassword=123456&register-button=Register")
-                    .when()
-                    .post("http://demowebshop.tricentis.com/register")
-                    .then()
-                    .statusCode(302);
-            get("http://demowebshop.tricentis.com/registerresult/1")
-                    .then()
-                    .statusCode(200);
-        });
-
-        step("Check that registration successed by UI", () -> {
-            open("http://demowebshop.tricentis.com/registerresult/1");
-            $(".result").shouldHave(Condition.text("Your registration completed"));
-        });
-    }
-
-
-}
+// }
