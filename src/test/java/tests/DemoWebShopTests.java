@@ -1,7 +1,6 @@
 package tests;
 
 import com.codeborne.selenide.Condition;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -13,8 +12,10 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static filters.CustomLogFilters.customLogFilter;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
+import static tests.Specs.request;
 import static org.hamcrest.Matchers.is;
 import static io.restassured.RestAssured.get;
+import static tests.Specs.response;
 
 
 public class DemoWebShopTests {
@@ -23,23 +24,17 @@ public class DemoWebShopTests {
     // test for a new user, always 1 item in the cart
     @Test
     void addToCartTest() {
-        Response response =
                 given()
-                        .filter(customLogFilter().withCustomTemplates())
-                        .contentType("application/x-www-form-urlencoded; charset=UTF-8")
+                        .spec(request)
                         .body("product_attribute_16_5_4=14&product_attribute_16_6_5=15&" +
                                 "product_attribute_16_3_6=19&product_attribute_16_4_7=44&" +
                                 "product_attribute_16_8_8=22&addtocart_16.EnteredQuantity=1")
                         .when()
                         .post("http://demowebshop.tricentis.com/addproducttocart/details/16/1")
                         .then()
-                        .statusCode(200)
-                        .body("success", is(true))
-                        .body("message", is("The product has been added to your <a href=\"/cart\">shopping cart</a>"))
-                        .body("updatetopcartsectionhtml", is("(1)"))
-                        .extract().response();
+                        .spec(response)
+                        .body("updatetopcartsectionhtml", is("(1)"));
 
-        System.out.println("Response: " + response.path("updatetopcartsectionhtml"));
 
 
     }
@@ -47,30 +42,25 @@ public class DemoWebShopTests {
 
     @Test
     void addToCartWithCookieTest() {
-        Response response =
+
                 given()
-                        .filter(customLogFilter().withCustomTemplates())
-                        .contentType("application/x-www-form-urlencoded; charset=UTF-8")
+                        .spec(request)
                         .body("product_attribute_72_5_18=53&product_attribute_72_6_19=54&product_attribute_72_3_20=57&addtocart_72.EnteredQuantity=1")
                         .cookie("Nop.customer=957e0607-7b6f-4e93-8308-32ac30a6677c;")
                         .when()
                         .post("http://demowebshop.tricentis.com/addproducttocart/details/72/1")
                         .then()
                         .statusCode(200)
-                        .body("success", is(true))
-                        .body("message", is("The product has been added to your <a href=\"/cart\">shopping cart</a>"))
+                        .spec(response);
                         //                      .body("updatetopcartsectionhtml", is("(1)"))
-                        .extract().response();
-        System.out.println(response.asString());
-        System.out.println(response.path("updatetopcartsectionhtml").toString());
+
     }
     // API and UI
 
     @Test
     void addProductToCartWithCookieAPIandUITest() {
         given()
-                .filter(customLogFilter().withCustomTemplates())
-                .contentType("application/x-www-form-urlencoded; charset=UTF-8")
+                .spec(request)
                 .body("product_attribute_74_5_26=82" +
                         "&product_attribute_74_6_27=85" +
                         "&product_attribute_74_3_28=87" +
@@ -82,10 +72,7 @@ public class DemoWebShopTests {
                 .when()
                 .post("http://demowebshop.tricentis.com/addproducttocart/details/31/1")
                 .then()
-                .statusCode(200)
-                .body("success", is(true))
-                .body("message", is("The product has been added to your <a href=\"/cart\">shopping cart</a>"))
-                .extract().response();
+                .spec(response);
         // Add cookie to browser
         open("http://demowebshop.tricentis.com/Themes/DefaultClean/Content/images/logo.png");
         getWebDriver().manage().addCookie(
@@ -104,8 +91,7 @@ public class DemoWebShopTests {
     void registration() {
         step("Register user by API", () -> {
             given()
-                    .filter(customLogFilter().withCustomTemplates())
-                    .contentType("application/x-www-form-urlencoded")
+                    .spec(request)
                     .body("__RequestVerificationToken=EOKFnxmSoeEnFm-" +
                             "ghPa0CZir4ETJXEXwMfTdzZIgoS55Tm0oKwyiDESnXdIbi-6DgkSCWGC_" +
                             "HPyc5ka4gNvFApBjYYmWJrNVgUYFgl66VzA1&Gender=" +
